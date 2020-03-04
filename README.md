@@ -24,25 +24,31 @@ use `<el-table-plus>` in your page
 ``` html
 <template>
     <el-table-plus
-        :formModel="{
-            name: '',
-            age: '',
-            address: '',
-            sex: '男'
-        }"
-        :fieldList="[
-            { label: '姓名', value: 'name', type: 'input' },
-            { label: '年龄', value: 'age', type: 'input' },
-            { label: '家庭住址', value: 'address', type: 'select', options: ['地址1', '地址2'].map(str => ({label: str, value: str})) },
-            { label: '性别', value: 'sex', type: 'radio-group', options: ['男', '女'].map(str => ({label: str, value: str})) }
-        ]"
+      :data="list"
+      :fieldList="[
+        { label: 'ID', value: 'id', width: '80px' },
+        { label: '存储卷名', value: 'name', type: 'copy' },
+        { label: '总容量', value: 'storage', fn: val => `${val}G` },
+        { label: '创建人', value: 'member.userId', type: 'el-tag' },
+        { label: '邮箱', value: 'member.email' },
+        { label: '创建时间', value: 'gmtCreate' }
+      ]"
+      :handle="{
+        fixed: 'right',
+        label: '操作',
+        width: '150',
+        btList: [
+          { label: '查看详情', btType: 'primary', func: detailHandle },
+          { label: '删除', btType: 'danger', func: delHandle }
+        ]
+      }"
     />
 </template>
 ```
 
 you can get preview by above code：
 
-![image](https://user-images.githubusercontent.com/6310131/75845067-ea353800-5e12-11ea-98aa-66401d18aee6.png)
+![image](https://user-images.githubusercontent.com/6310131/75849382-adbc0900-5e1f-11ea-8201-22b5ebe97984.png)
 
 ## API
 
@@ -52,28 +58,44 @@ you can get preview by above code：
 
 Prop | Type | Default | Description
 --- | --- | --- | ---
-refObj | Object |  | 返回form引用，如果手动validate需要用到
-formModel | Object |  {} | el-form的model属性包装
-fieldList | Array | item配置列表 | 详细见[如下](#fieldList-Attrs)
-rules | Object | {} | el-form的rules，可定义所有form-item的规则，优先级最高
-labelWidth | string | 100px | el-form的labelWidth
-labelPosition | string | left | el-form的labelPosition
+loading | Boolean |  | 动效loading
+data | Array |  [] | 列表数据
+fieldList | Array | column item配置列表 | 详细见[如下fieldList Attrs](#fieldList-Attrs)
+handle | Object |  | 操作栏配置,主要针对点击事件，详细见[如下handle Attrs](#handle-Attrs)
+extendData | Object |  | 扩展数据，解决组件只能传Array Table外数据，无法额外传入数据。
 
 ### fieldList Attrs
 
 Attr | Type | Default | Description
 --- | --- | --- | ---
-type | String |  | 必需。渲染的组件类型，支持input、textarea、select、radio-group、input-number、date、slot。同时支持动态组件，为约束完全的动态性，动态组件的命名请以`el-`或`dynamic-`开头。
-value | String |   | 必需。值字段，v-model绑定的值为this.data[value]
-label | String |   | form-item标题
-tooltip | String |  | 标题附近的提示
-disabled | Boolean |  false | 是否禁用
-placeholder | String |  | 组件placeholder提示，默认input是‘请输入label’，select默认是‘请选择label’
-required | Boolean |  false | 校验规则：是否必须
-pattern | Regex |   | 校验规则：满足正则
-validator | function |   | 校验规则：自定义函数，最灵活
-rules | Array\<Rule> |   | 以上三种attr校验属于快速校验规则，使用rules可一次性定义form-item的规则
-options | Array |   | 针对select和radio-group组件，配置options list
+label | String |   | 列名称
+value | String |   | 列数据字段，支持多层对象嵌套，如user.email.prefix
+fn | Function |   | 自定义内容替换默认value。函数参数(value, row)
+width | String |   | 列宽度
+minWidth | String | 100px  | 最小列宽度，默认'100px'
+fixed | Boolean |  false | 是否固定列
+notips | Boolean | false  | 超出cell时，是否使用tips提示，默认超过显示tips
+hidden | Boolean |   | 是否隐藏该列。建议是一个computed，使得可以响应式显示隐藏
+
+### handle Attrs
+
+Attr | Type | Default | Description
+--- | --- | --- | ---
+width | String |   | 操作栏宽度
+minWidth | String |   | 操作栏最小列宽度
+fixed | Boolean |  false | 是否固定列
+btnList | Array |   | 按钮列表。详细见[如下handle btnList Attrs](#handle-btnList-Attrs)
+
+### handle btnList Attrs
+
+Attr | Type | Default | Description
+--- | --- | --- | ---
+label | String \| Function |   | button显示名称
+icon | String |   | el-link图标
+btType | String |   | el-link的主题色,默认是primary
+func | Function |   | button单击事件，参数(row, extendData)
+disabled | Boolean \| Function |   | 是否禁用该button
+hidden | Boolean \| Function |   | 是否隐藏该button
 
 > 由于type=slot用到v-slot作用域插槽，vue版本需要v2.6+
 

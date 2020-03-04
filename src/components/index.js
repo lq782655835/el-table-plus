@@ -1,12 +1,15 @@
 import Component from "./el-table-plus.vue";
 import { getDataValue } from "./util";
 
-function install(Vue) {
+function install(Vue, options = {}) {
   if (install.installed) return;
   install.installed = true;
-  Vue.prototype.$getDataValue = (...args) => getDataValue(Vue, ...args);
+
   Vue.component("el-table-plus", Component);
+  Vue.prototype.$getDataValue = (...args) => getDataValue(Vue, ...args);
+  Vue.prototype.$ELEMENT_PLUS = options
 }
+Component.install = install;
 
 // auto plugin install
 let GlobalVue = null;
@@ -16,9 +19,8 @@ if (typeof window !== "undefined") {
   GlobalVue = global.vue;
 }
 if (GlobalVue) {
-  GlobalVue.use({ install });
+  GlobalVue.use(Component);
 }
 
 // export default
-Component.install = install;
 export default Component;

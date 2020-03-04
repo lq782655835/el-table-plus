@@ -96,7 +96,7 @@ export default {
     data: { type: Array, default: () => [] },
     /**
      * 表格字段列表配置。以下是每个字段可配置内容：
-     * label：列名称,可配置为string或function
+     * label：列名称
      * value：对应字段
      * fn: 自定义内容
      * type: 内置规则，有slot、filter、badge
@@ -131,11 +131,6 @@ export default {
       } else {
         return field
       }
-    },
-    supportFunField(field, row) {
-      // 当field是自定义函数时，优先
-      if (typeof field === "function") return !field(row);
-      return !field;
     }
   }
 };

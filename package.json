@@ -1,8 +1,13 @@
 {
   "name": "@springleo/el-table-plus",
-  "version": "0.1.1",
+  "version": "0.1.0",
   "main": "dist/el-table-plus.common.js",
+  "author": "springleo<782655835@qq.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lq782655835/el-table-plus"
+  },
   "keywords": [
     "vue",
     "element",
