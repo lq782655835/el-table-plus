@@ -3,12 +3,12 @@
     <el-table-plus
       :data="list"
       :fieldList="[
-        { label: 'ID', value: 'id', width: '80px' },
-        { label: '存储卷名', value: 'name', type: 'copy' },
-        { label: '总容量', value: 'storage', fn: val => `${val}G` },
-        { label: '创建人', value: 'member.userId', type: 'el-tag' },
-        { label: '邮箱', value: 'member.email' },
-        { label: '创建时间', value: 'gmtCreate' }
+        { label: 'ID', prop: 'id', width: '80px' },
+        { label: '存储卷名', prop: 'name', type: 'copy' },
+        { label: '总容量', prop: 'storage', fn: val => `${val}G` },
+        { label: '创建人', prop: 'member.userId', type: 'el-tag' },
+        { label: '邮箱', prop: 'member.email' },
+        { label: '创建时间', prop: 'gmtCreate' }
       ]"
       :handle="{
         fixed: 'right',

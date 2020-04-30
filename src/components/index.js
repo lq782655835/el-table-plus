@@ -1,12 +1,10 @@
-import Component from "./el-table-plus.vue";
-import { getDataValue } from "./util";
+import Component from "./el-table-plus.jsx";
 
 function install(Vue, options = {}) {
   if (install.installed) return;
   install.installed = true;
 
   Vue.component("el-table-plus", Component);
-  Vue.prototype.$getDataValue = (...args) => getDataValue(Vue, ...args);
   Vue.prototype.$ELEMENT_PLUS = options
 }
 Component.install = install;

@@ -69,12 +69,12 @@ extendData | Object |  | 扩展数据，解决组件只能传Array Table外数�
 Attr | Type | Default | Description
 --- | --- | --- | ---
 label | String |   | 列名称
-value | String |   | 列数据字段，支持多层对象嵌套，如user.email.prefix
+prop | String |   | 列数据字段，支持多层对象嵌套，如user.email.prefix
 fn | Function |   | 自定义内容替换默认value。函数参数(value, row)
 width | String |   | 列宽度
 minWidth | String | 100px  | 最小列宽度，默认'100px'
 fixed | Boolean |  false | 是否固定列
-notips | Boolean | false  | 超出cell时，是否使用tips提示，默认超过显示tips
+show-overflow-tooltip | Boolean | false  | 超出cell时，是否使用tips提示，默认超过显示tips
 hidden | Boolean |   | 是否隐藏该列。建议是一个computed，使得可以响应式显示隐藏
 
 ### handle Attrs
