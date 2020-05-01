@@ -37,6 +37,10 @@ export default {
           if (column.fn) {
             return column.fn(defaultValue, row, column, $index)
           }
+          // 兼容element-ui formatter属性
+          if (column.formatter) {
+            return column.formatter(row, column, defaultValue, $index)
+          }
 
           return defaultValue
         }
