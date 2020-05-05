@@ -18,6 +18,8 @@
     "serve": "vue-cli-service serve",
     "build:publish": "vue-cli-service build --dest demo && node ./scripts/demo.js",
     "build:bundle": "vue-cli-service build --target lib --name el-table-plus ./src/components/index.js",
+    "dev:docs": "vuepress dev docs",
+    "build:docs": "vuepress build docs",
     "lint": "vue-cli-service lint",
     "format": "prettier --write './**/*.{js,ts,vue,json}'"
   },
@@ -38,7 +40,9 @@
     "gh-pages": "^2.1.1",
     "prettier": "^1.19.1",
     "shelljs": "^0.8.3",
-    "vue-template-compiler": "^2.6.10"
+    "vue-template-compiler": "^2.6.10",
+    "vuepress": "^1.4.1",
+    "vuepress-plugin-leo-demo-block": "^0.1.1"
   },
   "eslintConfig": {
     "root": true,
