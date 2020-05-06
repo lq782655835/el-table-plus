@@ -33,15 +33,6 @@ use `<el-table-plus>` in your page
         { label: '邮箱', value: 'member.email' },
         { label: '创建时间', value: 'gmtCreate' }
       ]"
-      :handle="{
-        fixed: 'right',
-        label: '操作',
-        width: '150',
-        btList: [
-          { label: '查看详情', btType: 'primary', func: detailHandle },
-          { label: '删除', btType: 'danger', func: delHandle }
-        ]
-      }"
     />
 </template>
 ```
@@ -54,7 +45,7 @@ you can get preview by above code：
 
 ### el-table-plus Props
 
-基于el-table，所以Props支持el-table上所有props以及事件event。
+基于el-table，所以**Props支持el-table上所有props以及事件event**。
 
 Prop | Type | Default | Description
 --- | --- | --- | ---
