@@ -1,10 +1,11 @@
 module.exports = {
     title: 'el-table-plus',
     themeConfig: {
-      repo: 'https://github.com/lq782655835/vuele',
-      docsRepo: 'https://github.com/lq782655835/vuele',
+      repo: 'https://github.com/lq782655835/el-table-plus',
+      docsRepo: 'https://github.com/lq782655835/el-table-plus',
       docsDir: 'docs',
       docsBranch: 'master',
+      sidebar: 'auto'
     },
     plugins: [
       'leo-demo-block',
@@ -35,8 +36,5 @@ module.exports = {
           presets: ['@vue/app']
         },
       })
-      
-
     },
   }
-  
