@@ -19,6 +19,8 @@ export default {
       const scopedSlots = {
         default: ({ row, column: elColumn, $index}) => {
 
+          const mergedColumn = Object.assign({}, elColumn, column)
+
           // 支持链式. 如：xxx.xxx
           const defaultValue = getDataValue(column, row)
 
@@ -34,15 +36,15 @@ export default {
           // 自定义组件
           column.customRender = column.customRender || this.$scopedSlots[column.scopedSlots.customRender]
           if (column.customRender) {
-            return column.customRender(defaultValue, row, elColumn, $index, h)
+            return column.customRender(defaultValue, row, mergedColumn, $index, h)
           }
           // 自定义文字
           if (column.fn) {
-            return column.fn(defaultValue, row, elColumn, $index)
+            return column.fn(defaultValue, row, mergedColumn, $index)
           }
           // 兼容element-ui formatter属性
           if (column.formatter) {
-            return column.formatter(row, elColumn, defaultValue, $index)
+            return column.formatter(row, mergedColumn, defaultValue, $index)
           }
 
           return defaultValue

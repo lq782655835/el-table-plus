@@ -84,6 +84,8 @@ export default {
 ```
 :::
 
+## 内置渲染组件
+
 ## 格式化列
 
 element-ui字段列中有 [formatter](https://element.eleme.cn/#/zh-CN/component/table) - Function(row, column, cellValue, index) 属性支持格式化，这里el-table-plus兼容该写法。
@@ -121,7 +123,7 @@ export default {
 ```
 :::
 
-## 自定义渲染
+## 自定义列模板
 
 支持jsx/slot/h函数三种方式的自定义渲染。
 
@@ -136,7 +138,7 @@ export default {
       :data="list"
       :columns="columns"
     >
-      <template #handle="text, row">
+      <template #handle="val, row">
         <el-button type="primary" @click="detailHandle(row)">查看详情</el-button>
         <el-button type="danger" @lick="this.delHandle(row)">删除</el-button>
       </template>
@@ -183,11 +185,87 @@ export default {
 ```
 :::
 
-## sort
+## 远程排序
 
-## expand
+使用`sortable: 'custom'`,搭配`sort-change`事件，进行远程排序。
 
-## slot支持
+使用`default-sort`设置默认排序方向。
+
+:::demo
+``` vue
+<template>
+    <el-table-plus
+      :data="list"
+      :columns="columns"
+      @sort-change="sortChangeHandle"
+      :default-sort = "{prop: 'storage', order: 'ascending'}"
+    />
+</template>
+
+<script>
+const  listData = JSON.parse(
+        `{"code":200,"message":"success","data":[{"id":50745,"name":"rtBNhgqCDR","storage":8620,"member":{"id":50961,"userId":"51262","email":"Nu87YypnB@AK22e.rgu","projectRole":"Qa4ohl6qhT"},"mount":[{"mountType":"M8Rhh2Ntp6","mountName":"bFTDHyixr3","mountPath":"uwDTMtnbCW","userName":"nYIE5YoQve"},{"mountType":"8pUyKzNPjL","mountName":"TVaV7bjr1y","mountPath":"HoazVStmm5","userName":"nbGzaRjLjK"},{"mountType":"nD3hnojrY0","mountName":"vtJvtG05Jw","mountPath":"p5VWi1ptsi","userName":"8ERyVxGL3R"}],"gmtCreate":34327},{"id":51414,"name":"1A6ogTNZl1","storage":36580,"member":{"id":51767,"userId":"52603","email":"606UKO@AgasP.qmt","projectRole":"q8KkeQyD8f"},"mount":[{"mountType":"VG3JPYd4n5","mountName":"ijPznKZnUQ","mountPath":"SiQIq2ypee","userName":"rAhVP1UTUQ"},{"mountType":"B900pSNnAf","mountName":"MGFUwpuZq2","mountPath":"RQJOgsV806","userName":"acfdNaETLA"},{"mountType":"L81aEPhXWJ","mountName":"7hWszN6MpP","mountPath":"e99n7mLoHe","userName":"t2d5oVwRqV"}],"gmtCreate":78533},{"id":52659,"name":"srO0gfnHho","storage":46240,"member":{"id":52998,"userId":"53927","email":"M37YXor@949Y0.acq","projectRole":"2ikIgsSabL"},"mount":[{"mountType":"YjxjSNSyOv","mountName":"lRsFRwSWgc","mountPath":"Z1rMIGu0cR","userName":"CoUSbae92N"},{"mountType":"N716xNCa4q","mountName":"uxYPo7TGcG","mountPath":"pXyJpuZ1CX","userName":"oiubmGJ4dQ"},{"mountType":"r3PqYBkT9y","mountName":"Pp6B1yZXhi","mountPath":"SjbANI8SmS","userName":"9h8k3elmdM"}],"gmtCreate":98416}]}`
+      ).data
+export default {
+  data() {
+    return {
+      list: listData,
+      columns: [
+        { label: 'ID', prop: 'id', width: '80px' },
+        { label: '存储卷名', prop: 'name', type: 'copy' },
+        { label: '总容量', prop: 'storage', sortable: 'custom', 'sort-orders': ['ascending', 'descending'] },
+        { label: '邮箱', prop: 'member.email' },
+        { label: '创建时间', prop: 'gmtCreate' }
+      ]
+    };
+  },
+  methods: {
+    sortChangeHandle(o) {
+      console.log(o)
+    },
+  }
+};
+</script>
+```
+:::
+
+## 展开行
+
+当行内容过多并且不想显示横向滚动条时，可以使用 Table 展开行功能。
+
+:::demo
+``` vue
+<template>
+    <el-table-plus
+      :data="list"
+      :columns="columns"
+    />
+</template>
+
+<script>
+const  listData = JSON.parse(
+        `{"code":200,"message":"success","data":[{"id":50745,"name":"rtBNhgqCDR","storage":8620,"member":{"id":50961,"userId":"51262","email":"Nu87YypnB@AK22e.rgu","projectRole":"Qa4ohl6qhT"},"mount":[{"mountType":"M8Rhh2Ntp6","mountName":"bFTDHyixr3","mountPath":"uwDTMtnbCW","userName":"nYIE5YoQve"},{"mountType":"8pUyKzNPjL","mountName":"TVaV7bjr1y","mountPath":"HoazVStmm5","userName":"nbGzaRjLjK"},{"mountType":"nD3hnojrY0","mountName":"vtJvtG05Jw","mountPath":"p5VWi1ptsi","userName":"8ERyVxGL3R"}],"gmtCreate":34327},{"id":51414,"name":"1A6ogTNZl1","storage":36580,"member":{"id":51767,"userId":"52603","email":"606UKO@AgasP.qmt","projectRole":"q8KkeQyD8f"},"mount":[{"mountType":"VG3JPYd4n5","mountName":"ijPznKZnUQ","mountPath":"SiQIq2ypee","userName":"rAhVP1UTUQ"},{"mountType":"B900pSNnAf","mountName":"MGFUwpuZq2","mountPath":"RQJOgsV806","userName":"acfdNaETLA"},{"mountType":"L81aEPhXWJ","mountName":"7hWszN6MpP","mountPath":"e99n7mLoHe","userName":"t2d5oVwRqV"}],"gmtCreate":78533},{"id":52659,"name":"srO0gfnHho","storage":46240,"member":{"id":52998,"userId":"53927","email":"M37YXor@949Y0.acq","projectRole":"2ikIgsSabL"},"mount":[{"mountType":"YjxjSNSyOv","mountName":"lRsFRwSWgc","mountPath":"Z1rMIGu0cR","userName":"CoUSbae92N"},{"mountType":"N716xNCa4q","mountName":"uxYPo7TGcG","mountPath":"pXyJpuZ1CX","userName":"oiubmGJ4dQ"},{"mountType":"r3PqYBkT9y","mountName":"Pp6B1yZXhi","mountPath":"SjbANI8SmS","userName":"9h8k3elmdM"}],"gmtCreate":98416}]}`
+      ).data
+export default {
+  data() {
+    return {
+      list: listData,
+      columns: [
+        { label: '', type: 'expand', customRender: (val, row, column,index, h) => h('div', `${row.name}、${row.storage}`) },
+        { label: 'ID', prop: 'id', width: '80px' },
+        { label: '存储卷名', prop: 'name' },
+        { label: '总容量', prop: 'storage' },
+        { label: '邮箱', prop: 'member.email' },
+        { label: '创建时间', prop: 'gmtCreate' }
+      ]
+    };
+  }
+};
+</script>
+```
+:::
+
+## 自定义表头
 
 跟element一致，支持自定义列的内容以及自定义表头的内容，分别对应`customRender`和`customTitle`。参数顺序和element一致，分别是 { row, column, $index }和 { column, $index }
 

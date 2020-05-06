@@ -1,5 +1,6 @@
 module.exports = {
     title: 'el-table-plus',
+    base: '/el-table-plus/',
     themeConfig: {
       repo: 'https://github.com/lq782655835/el-table-plus',
       docsRepo: 'https://github.com/lq782655835/el-table-plus',

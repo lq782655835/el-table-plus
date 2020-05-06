@@ -46,6 +46,10 @@ export default {
     return {
       list: listData,
       columns: [
+        { label: '', type: 'expand', customRender: (val, row, column) => {
+          console.log(val, row, column, 111)
+          return <div>{row.name}、{row.storage}</div>
+        }},
         { label: 'ID', prop: 'id', width: '80px' },
         { label: '存储卷名', prop: 'name', type: 'copy' },
         { label: '总容量', prop: 'storage', fn: val => `${val}G` },
