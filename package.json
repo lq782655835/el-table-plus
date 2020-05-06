@@ -24,7 +24,6 @@
     "format": "prettier --write './**/*.{js,ts,vue,json}'"
   },
   "dependencies": {
-    "@springleo/30-seconds-of-code": "^1.0.3",
     "core-js": "^2.6.5",
     "vue": "^2.6.10"
   },

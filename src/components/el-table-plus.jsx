@@ -14,9 +14,11 @@ export default {
   },
   render(h) {
     const getDataValue = (column, row) => column.prop.split(".").reduce((obj, cur) => obj[cur], row);
-    const renderColumns = columns => columns.filter(i => !i.hidden).map((column) => {
+    const renderColumns = columns => columns.filter(i => !i.hidden).map(column => {
+      column = Object.assign({scopedSlots: {}, prop: ''}, column)
       const scopedSlots = {
-        default: ({ row, $index}) => {
+        default: ({ row, column: elColumn, $index}) => {
+
           // 支持链式. 如：xxx.xxx
           const defaultValue = getDataValue(column, row)
 
@@ -30,19 +32,27 @@ export default {
           }
 
           // 自定义组件
+          column.customRender = column.customRender || this.$scopedSlots[column.scopedSlots.customRender]
           if (column.customRender) {
-            return column.customRender(h, defaultValue, row, column, $index)
+            return column.customRender(defaultValue, row, elColumn, $index, h)
           }
           // 自定义文字
           if (column.fn) {
-            return column.fn(defaultValue, row, column, $index)
+            return column.fn(defaultValue, row, elColumn, $index)
           }
           // 兼容element-ui formatter属性
           if (column.formatter) {
-            return column.formatter(row, column, defaultValue, $index)
+            return column.formatter(row, elColumn, defaultValue, $index)
           }
 
           return defaultValue
+        },
+        header: ({column: elColumn, $index}) => {
+          column.customTitle = column.customTitle || this.$scopedSlots[column.scopedSlots.customTitle]
+          if (column.customTitle) {
+            return column.customTitle(elColumn, $index)
+          }
+          return column.label
         }
       }
 
