@@ -16,7 +16,7 @@
   ],
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build:bundle": "vue-cli-service build --target lib --name el-table-plus ./src/components/index.js",
+    "build": "vue-cli-service build --target lib --name el-table-plus ./src/components/index.js",
     "dev:docs": "vuepress dev docs",
     "build:docs": "vuepress build docs",
     "release:docs": "npm run build:docs && gh-pages -d docs/.vuepress/dist",
