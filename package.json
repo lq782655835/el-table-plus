@@ -1,6 +1,6 @@
 {
   "name": "@springleo/el-table-plus",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "main": "dist/el-table-plus.common.js",
   "author": "springleo<782655835@qq.com>",
   "license": "MIT",
@@ -17,12 +17,13 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --target lib --name el-table-plus ./src/components/index.js",
-    "release": "standard-version -i CHANGELOG.md",
+    "release": "standard-version -i CHANGELOG.md -r patch",
     "dev:docs": "vuepress dev docs",
     "build:docs": "vuepress build docs",
     "release:docs": "npm run build:docs && gh-pages -d docs/.vuepress/dist",
     "lint": "vue-cli-service lint",
-    "format": "prettier --write './**/*.{js,ts,vue,json}'"
+    "format": "prettier --write './**/*.{js,ts,vue,json}'",
+    "prepublishOnly": "npm run build && npm run release && git push"
   },
   "dependencies": {
     "core-js": "^2.6.5",
