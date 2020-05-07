@@ -19,11 +19,17 @@ yarn add @springleo/el-table-plus
 ```
 
 引入
+
+该组件依赖element-ui的el-table组件，需要自行引入。
+
 ``` js
+import ElementUI from "element-ui";
+import "element-ui/lib/theme-chalk/index.css";
+Vue.use(ElementUI);
+
 import ElTablePlus from '@springleo/el-table-plus'
 Vue.use(ElTablePlus)
 ```
-
 
 ## 基本用法
 

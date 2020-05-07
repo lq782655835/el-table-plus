@@ -12,14 +12,16 @@ https://lq782655835.github.io/el-table-plus
 
 ## Quick Start
 
-Import modules and set up settings in main.js:
+该组件依赖element-ui的el-table组件，需要自行引入。
 
 ``` js
+import ElementUI from "element-ui";
+import "element-ui/lib/theme-chalk/index.css";
+Vue.use(ElementUI);
+
 import ElTablePlus from '@springleo/el-table-plus'
 Vue.use(ElTablePlus)
 ```
-
-use `<el-table-plus>` in your page
 
 ``` html
 <template>
