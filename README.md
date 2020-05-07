@@ -27,9 +27,9 @@ use `<el-table-plus>` in your page
       :data="list"
       :columns="[
         { label: 'ID', value: 'id', width: '80px' },
-        { label: '存储卷名', value: 'name', type: 'copy' },
+        { label: '存储卷名', value: 'name' },
         { label: '总容量', value: 'storage', fn: val => `${val}G` },
-        { label: '创建人', value: 'member.userId', type: 'el-tag' },
+        { label: '创建人', value: 'member.userId' },
         { label: '邮箱', value: 'member.email' },
         { label: '创建时间', value: 'gmtCreate' }
       ]"
@@ -37,35 +37,42 @@ use `<el-table-plus>` in your page
 </template>
 ```
 
-you can get preview by above code：
-
-![image](https://user-images.githubusercontent.com/6310131/75849382-adbc0900-5e1f-11ea-8201-22b5ebe97984.png)
-
 ## API
 
-### el-table-plus Props
+### el-table-plus 属性
 
-基于el-table，所以**Props支持el-table上所有props以及事件event**。
+支持el-table上所有[原有属性](https://element.eleme.cn/#/zh-CN/component/table#table-attributes)，同时扩展以下api。
 
-Prop | Type | Default | Description
+参数 | 类型 | 默认值 | 说明
 --- | --- | --- | ---
-loading | Boolean |  | 动效loading
+loading | Boolean | false | 动效loading
 data | Array |  [] | 列表数据
-columns | Array | column item配置列表 | 详细见[如下columns Attrs](#columns-Attrs)
+columns | Array | [] | column item配置列表，详细见[如下columns Attrs](#columns-属性)
+pagination | Object | | 翻页器配置，默认未设置，不显示翻页器。相关api可查看[el-pagination](https://element.eleme.cn/#/zh-CN/component/pagination#attributes)
+total | Number | 0 | 翻页器条数总数
 
-### columns Attrs
+### el-table-plus 事件
+
+支持el-table上所有[原有事件](https://element.eleme.cn/#/zh-CN/component/table#table-events)，同时扩展以下api。
+
+事件名称 | 说明 | Description
+--- | --- | ---
+scroll | table滚动条事件 | e
+page-change | 翻页器改变事件 | { pageSize, currentPage }
+
+### columns 属性
+
+支持el-table-column所有[原有属性](https://element.eleme.cn/#/zh-CN/component/table#table-column-attributes)、[Scoped Slot](https://element.eleme.cn/#/zh-CN/component/table#table-column-scoped-slot),同时扩展以下api：
 
 Attr | Type | Default | Description
 --- | --- | --- | ---
 label | String |   | 列名称
 prop | String |   | 列数据字段，支持多层对象嵌套，如user.email.prefix
-fn | Function |   | 自定义format函数。函数参数(value, row, column, $index)
-customRender | Function |   | 自定义render。函数参数(h, value, row, column, $index)
+fn | Function |   | 格式化列。函数参数(value, row, column, $index)
 hidden | Boolean |   | 是否隐藏该列。建议是一个computed，使得可以响应式显示隐藏
-width | String |   | 列宽度
-minWidth | String | 100px  | 最小列宽度，默认'100px'
-fixed | Boolean |  false | 是否固定列
-show-overflow-tooltip | Boolean | false  | 超出cell时，是否使用tips提示，默认超过显示tips
+customRender | Function |   | 自定义列数据渲染。函数参数(value, row, column, $index, h)，**支持jsx和h函数**
+customTitle | Function |   | 自定义列头部渲染。函数参数(column, $index, h)，**支持jsx和h函数**
+scopedSlots | Object |   | **使用slot方式自定义渲染**，替换customRender/customTitle函数。比如：{ customRender: 'slotName1', customTitle: 'slotName2' }
 
 ## License
 
