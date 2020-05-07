@@ -1,16 +1,30 @@
 # el-table-plus ![](https://img.shields.io/badge/license-MIT-F44336.svg)
 
-## Install
+> 基于el-table的配置化组件
 
+背景：使用el-table时，总要书写过多的template模板代码，使得页面html代码过多。从应用层看element组件库，虽然api设计的十分灵活，但使用起来十分繁琐。所以需要对el-table进行包装，简化相关配置。
+
+应用层api设计比较好的，推荐[antd-design-vue table](https://antdv.com/components/table-cn/),el-table-plus api设计就参考了antd-design-vue table组件，底层渲染依然沿用element-ui table组件。同时全属性/事件支持原element table组件，不会破坏原有的api（无侵入）；同时支持slot/jsx/h函数三种方式自定义渲染列数据，实现自定义业务逻辑渲染；同时集成常用的pagination组件以及扩展api，帮助便捷处理常用业务。
+
+## 在线案例
+
+https://lq782655835.github.io/el-table-plus
+
+## 特点
+
+1. 简单的使用方式，只需要data和column两个属性即可支持
+1. 全继承，element-ui全属性/事件继承
+1. 高扩展，支持slot/jsx/h函数三种方式自定义渲染列数据
+1. 更便捷，扩展scroll事件、pagination组件、fn快捷格式化
+
+## 安装和引入
+
+安装
 ``` bash
 yarn add @springleo/el-table-plus
 ```
 
-## Online Example
-
-https://lq782655835.github.io/el-table-plus
-
-## Quick Start
+引入
 
 该组件依赖element-ui的el-table组件，需要自行引入。
 
@@ -22,6 +36,8 @@ Vue.use(ElementUI);
 import ElTablePlus from '@springleo/el-table-plus'
 Vue.use(ElTablePlus)
 ```
+
+## 基本使用
 
 ``` html
 <template>
