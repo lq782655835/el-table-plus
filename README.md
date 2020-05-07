@@ -25,79 +25,54 @@ use `<el-table-plus>` in your page
 <template>
     <el-table-plus
       :data="list"
-      :fieldList="[
+      :columns="[
         { label: 'ID', value: 'id', width: '80px' },
-        { label: '存储卷名', value: 'name', type: 'copy' },
+        { label: '存储卷名', value: 'name' },
         { label: '总容量', value: 'storage', fn: val => `${val}G` },
-        { label: '创建人', value: 'member.userId', type: 'el-tag' },
+        { label: '创建人', value: 'member.userId' },
         { label: '邮箱', value: 'member.email' },
         { label: '创建时间', value: 'gmtCreate' }
       ]"
-      :handle="{
-        fixed: 'right',
-        label: '操作',
-        width: '150',
-        btList: [
-          { label: '查看详情', btType: 'primary', func: detailHandle },
-          { label: '删除', btType: 'danger', func: delHandle }
-        ]
-      }"
     />
 </template>
 ```
 
-you can get preview by above code：
-
-![image](https://user-images.githubusercontent.com/6310131/75849382-adbc0900-5e1f-11ea-8201-22b5ebe97984.png)
-
 ## API
 
-### el-table-plus Props
+### el-table-plus 属性
 
-基于el-table，所以Props支持el-form上所有props以及事件event。
+支持el-table上所有[原有属性](https://element.eleme.cn/#/zh-CN/component/table#table-attributes)，同时扩展以下api。
 
-Prop | Type | Default | Description
+参数 | 类型 | 默认值 | 说明
 --- | --- | --- | ---
-loading | Boolean |  | 动效loading
+loading | Boolean | false | 动效loading
 data | Array |  [] | 列表数据
-fieldList | Array | column item配置列表 | 详细见[如下fieldList Attrs](#fieldList-Attrs)
-handle | Object |  | 操作栏配置,主要针对点击事件，详细见[如下handle Attrs](#handle-Attrs)
-extendData | Object |  | 扩展数据，解决组件只能传Array Table外数据，无法额外传入数据。
+columns | Array | [] | column item配置列表，详细见[如下columns Attrs](#columns-属性)
+pagination | Object | | 翻页器配置，默认未设置，不显示翻页器。相关api可查看[el-pagination](https://element.eleme.cn/#/zh-CN/component/pagination#attributes)
+total | Number | 0 | 翻页器条数总数
 
-### fieldList Attrs
+### el-table-plus 事件
+
+支持el-table上所有[原有事件](https://element.eleme.cn/#/zh-CN/component/table#table-events)，同时扩展以下api。
+
+事件名称 | 说明 | Description
+--- | --- | ---
+scroll | table滚动条事件 | e
+page-change | 翻页器改变事件 | { pageSize, currentPage }
+
+### columns 属性
+
+支持el-table-column所有[原有属性](https://element.eleme.cn/#/zh-CN/component/table#table-column-attributes)、[Scoped Slot](https://element.eleme.cn/#/zh-CN/component/table#table-column-scoped-slot),同时扩展以下api：
 
 Attr | Type | Default | Description
 --- | --- | --- | ---
 label | String |   | 列名称
-value | String |   | 列数据字段，支持多层对象嵌套，如user.email.prefix
-fn | Function |   | 自定义内容替换默认value。函数参数(value, row)
-width | String |   | 列宽度
-minWidth | String | 100px  | 最小列宽度，默认'100px'
-fixed | Boolean |  false | 是否固定列
-notips | Boolean | false  | 超出cell时，是否使用tips提示，默认超过显示tips
+prop | String |   | 列数据字段，支持多层对象嵌套，如user.email.prefix
+fn | Function |   | 格式化列。函数参数(value, row, column, $index)
 hidden | Boolean |   | 是否隐藏该列。建议是一个computed，使得可以响应式显示隐藏
-
-### handle Attrs
-
-Attr | Type | Default | Description
---- | --- | --- | ---
-width | String |   | 操作栏宽度
-minWidth | String |   | 操作栏最小列宽度
-fixed | Boolean |  false | 是否固定列
-btnList | Array |   | 按钮列表。详细见[如下handle btnList Attrs](#handle-btnList-Attrs)
-
-### handle btnList Attrs
-
-Attr | Type | Default | Description
---- | --- | --- | ---
-label | String \| Function |   | button显示名称
-icon | String |   | el-link图标
-btType | String |   | el-link的主题色,默认是primary
-func | Function |   | button单击事件，参数(row, extendData)
-disabled | Boolean \| Function |   | 是否禁用该button
-hidden | Boolean \| Function |   | 是否隐藏该button
-
-> 由于type=slot用到v-slot作用域插槽，vue版本需要v2.6+
+customRender | Function |   | 自定义列数据渲染。函数参数(value, row, column, $index, h)，**支持jsx和h函数**
+customTitle | Function |   | 自定义列头部渲染。函数参数(column, $index, h)，**支持jsx和h函数**
+scopedSlots | Object |   | **使用slot方式自定义渲染**，替换customRender/customTitle函数。比如：{ customRender: 'slotName1', customTitle: 'slotName2' }
 
 ## License
 
