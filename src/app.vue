@@ -10,7 +10,11 @@
       @row-click="rowClickHandle"
       @sort-change="sortChangeHandle"
       stripe
-      border>
+      border
+      :pagination="{layout:'prev, pager, next', background: true, small: true}"
+      :total="100"
+      @page-change="pageChangeHandle"
+    >
         <template #handle="text, row">
           <el-button type="primary" @click="detailHandle(row)">查看详情</el-button>
           <el-button type="danger" @lick="this.delHandle(row)">删除</el-button>
@@ -83,6 +87,10 @@ export default {
     },
     sortChangeHandle(o) {
       console.log(o)
+    },
+    pageChangeHandle(e) {
+      console.log(e)
+      // console.log(pageSize, currentPage)
     },
 
     // formatter
