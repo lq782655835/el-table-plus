@@ -2,7 +2,7 @@
 
 > 基于el-table的配置化组件
 
-背景：使用el-table时，总要书写过多的template模板代码，使得页面html代码过多。从应用层看element组件库，虽然api设计的十分灵活，但使用起来十分繁琐。所以需要对el-table进行包装，简化相关配置。
+背景：使用element el-table时，总要书写过多的template模板代码，使得页面html代码过多。从应用层看element组件库，虽然api设计的十分灵活，但使用起来十分繁琐。所以需要对el-table进行包装，简化相关配置。
 
 应用层api设计比较好的，推荐[antd-design-vue table](https://antdv.com/components/table-cn/),el-table-plus api设计就参考了antd-design-vue table组件，底层渲染依然沿用element-ui table组件。同时全属性/事件支持原element table组件，不会破坏原有的api（无侵入）；同时支持slot/jsx/h函数三种方式自定义渲染列数据，实现自定义业务逻辑渲染；同时集成常用的pagination组件以及扩展api，帮助便捷处理常用业务。
 
@@ -86,11 +86,19 @@ Attr | Type | Default | Description
 --- | --- | --- | ---
 label | String |   | 列名称
 prop | String |   | 列数据字段，支持多层对象嵌套，如user.email.prefix
-fn | Function |   | 格式化列。函数参数(value, row, column, $index)
 hidden | Boolean |   | 是否隐藏该列。建议是一个computed，使得可以响应式显示隐藏
 customRender | Function |   | 自定义列数据渲染。函数参数(value, row, column, $index, h)，**支持jsx和h函数**
 customTitle | Function |   | 自定义列头部渲染。函数参数(column, $index, h)，**支持jsx和h函数**
 scopedSlots | Object |   | **使用slot方式自定义渲染**，替换customRender/customTitle函数。比如：{ customRender: 'slotName1', customTitle: 'slotName2' }
+
+## Vue plugin series
+
+| Plugin | Status | Description |
+| :---------------- | :-- | :-- |
+| [@springleo/el-dialog-helper](https://github.com/lq782655835/el-dialog-helper) | ![](https://img.shields.io/badge/license-MIT-F44336.svg) | Promisify dialogs in Vue! |
+| [@springleo/el-table-plus](https://github.com/lq782655835/el-table-plus) | ![](https://img.shields.io/badge/license-MIT-F44336.svg) | 基于el-table的配置化组件|
+| [@springleo/el-form-plus](https://github.com/lq782655835/el-form-plus) | ![](https://img.shields.io/badge/license-MIT-F44336.svg) | schema form base on element-ui form |
+
 
 ## License
 

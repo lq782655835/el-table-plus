@@ -66,10 +66,6 @@ export default {
           if (column.customRender) {
             return column.customRender(defaultValue, row, column, $index, h)
           }
-          // 自定义文字
-          if (column.fn) {
-            return column.fn(defaultValue, row, column, $index)
-          }
           // 兼容element-ui formatter属性
           if (column.formatter) {
             return column.formatter(row, column, defaultValue, $index)
@@ -79,10 +75,12 @@ export default {
         },
         header: ({column: elColumn, $index}) => {
           const column = Object.assign({}, options, elColumn)
+
           column.customTitle = column.customTitle || this.$scopedSlots[column.scopedSlots.customTitle]
           if (column.customTitle) {
             return column.customTitle(elColumn, $index)
           }
+
           return column.label
         }
       }
