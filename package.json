@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "core-js": "^2.6.5",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "standard-version": "^8.0.0",
     "vue": "^2.6.10"
   },
