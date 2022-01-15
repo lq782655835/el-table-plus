@@ -42,7 +42,7 @@
     "eslint-plugin-vue": "^5.0.0",
     "gh-pages": "^2.1.1",
     "prettier": "^1.19.1",
-    "shelljs": "^0.8.3",
+    "shelljs": "^0.8.5",
     "vue-template-compiler": "^2.6.10",
     "vuepress": "^1.4.1",
     "vuepress-plugin-leo-demo-block": "^0.1.1"
